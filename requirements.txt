@@ -1,0 +1,13 @@
+django
+djangorestframework
+djangorestframework-simplejwt
+psycopg2-binary
+python-decouple
+dj-config-url
+pillow
+django-filter
+drf-yasg
+celery[redis]
+django-cors-headers
+django-allauth
+python-json-logger
