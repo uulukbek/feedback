@@ -32,10 +32,10 @@ schema_view = get_schema_view(openapi.Info(
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('swagger/', schema_view.with_ui('swagger')),
-    # path('api/v1/account/', include('applications.accounts.urls')),
+    path('api/v1/account/', include('applications.account.urls')),
     path('api/v1/universities/', include('applications.universities.urls')),
     # path('api/v1/order/', include('applications.order.urls')),
-    # path('accounts/', include('allauth.urls'))
+    # path('account/', include('allauth.urls'))
 ]
 
 # urlpatterns += static(

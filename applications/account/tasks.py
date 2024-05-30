@@ -2,21 +2,21 @@ from django.core.mail import send_mail
 from main.celery import app
 
 @app.task
-def send_act_code_celery(email, code):
-    link = f'http://localhost:8000/api/v1/account/confirm/{code}/'
+def send_confirmation_email(email, code):
+    full_link = f'http://127.0.0.1:8000/api/v1/account/confirm/{code}'
     send_mail(
-        'Ваш код для активации аккаунта',
-        f'Здрвствуйте {email}, нажмите на данную ссылку для активации вашего аккаунта: \n {link}',
-        'ulanovulukbek2@gmail.com',
-        [email]    
+        'User activation',
+        f'Please, click the link to acitvate profile:  {full_link}',
+        'ulanoffulukbek@yandex.ru',
+        [email]
     )
-    
-    
-@app.task    
+
+
+@app.task
 def send_confirmation_code(email, code):
     send_mail(
-        'Код для восстановления пароля',
-        f'Здравствуйте {email}, скопируйте этот код для восстановления пароля: \n{code}',
-        'ulanovulukbek2 @gmail.com',
-        [email],
+        'Password recovery',
+        f'Please, enter code to recover profile password: {code}',
+        'ulanoffulukbek@yandex.ru',
+        [email]
     )
