@@ -50,8 +50,7 @@ INSTALLED_APPS = [
     'applications.feedback',
     'applications.account',
 
-   'drf_yasg',
-]
+   'drf_yasg',]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -62,6 +61,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+SITE_ID = 1
 
 ROOT_URLCONF = 'main.urls'
 
@@ -189,4 +190,10 @@ SWAGGER_SETTINGS = {
             'name': 'Authorization'
         }
     }
+}
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    )
 }

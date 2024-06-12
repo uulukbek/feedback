@@ -10,10 +10,10 @@ from applications.feedback.serializers import FavouriteSerializer, RatingSeriali
 class FeedbackMixin:
     def add_comment(self, request, pk=None):
         try:
-            product = self.get_object()
+            university = self.get_object()
             comment = request.data['comment']
             user = request.user
-            comment_obj = Comment.objects.create(owner=user, product=product, comment=comment)
+            comment_obj = Comment.objects.create(owner=user, university=university, comment=comment)
             comment_obj.save()
             return Response({'msg': 'comment added'}, status=status.HTTP_201_CREATED)
         except MultiValueDictKeyError:

@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from applications.feedback.views import FeedbackMixin
 from core.universities.viewsets import ModelViewSet
 from rest_framework import viewsets
 from applications.universities.serializers import UniversitySerializer, FacultySerializer
@@ -8,6 +9,7 @@ from rest_framework.pagination import PageNumberPagination
 from rest_framework.response import Response
 from rest_framework.decorators import action
 from rest_framework import status
+
 import logging
 
 
@@ -20,7 +22,7 @@ class PaginationApiView(PageNumberPagination):
     page_size_query_param = 'university_pages'
 
 
-class UniversitiesViewSet(ModelViewSet):
+class UniversitiesViewSet(ModelViewSet, FeedbackMixin):
     serializer_class = UniversitySerializer
     queryset = University.objects.all()
     filterset_fields = ['category']
@@ -30,6 +32,7 @@ class UniversitiesViewSet(ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
+        
         
     def get_queryset(self):
         queryset = super().get_queryset()

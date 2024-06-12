@@ -4,3 +4,6 @@ m:
 
 r: 
 	./manage.py runserver
+
+u:
+	./manage.py createsuperuser

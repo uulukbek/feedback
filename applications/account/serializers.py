@@ -13,7 +13,7 @@ class ProfileSerializer(serializers.ModelSerializer):
         exclude = [
             "last_login", "is_superuser", "date_joined",
             "first_name", "last_name", "is_staff",
-            "activation_code", "confirm_code", "bank_card",
+            "activation_code", "confirm_code",
             "groups", "user_permissions",
         ]
         
