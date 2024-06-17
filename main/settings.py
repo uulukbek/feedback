@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 from datetime import timedelta
+from main.json_logger import CustomJsonFormatter
+
 from pathlib import Path
 from decouple import config
 import dj_config_url
@@ -50,7 +52,8 @@ INSTALLED_APPS = [
     'applications.feedback',
     'applications.account',
 
-   'drf_yasg',]
+   'drf_yasg',
+   'django_filters',]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -193,7 +196,43 @@ SWAGGER_SETTINGS = {
 }
 
 REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 2, 
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
+        
     )
+}
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+
+    'formatters': {
+        'main_formatters': {
+            'format': '{levelname} -- {asctime} -- {filename} -- {message}',
+            'style' : '{'
+        },
+        'file_json': {
+            '()': CustomJsonFormatter,
+        },
+    },
+
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'main_formatters'
+        },
+        'file': {
+            'class': 'logging.FileHandler',
+            'formatter': 'file_json',
+            'filename': 'info.log',
+        }
+    },
+    'loggers': {
+        'main': {
+            'handlers': ['console', 'file'],
+            'level' : 'DEBUG',
+        }
+    }
 }

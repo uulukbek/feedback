@@ -28,7 +28,7 @@ class FeedbackMixin:
     
     def like(self, request, pk=None, *args, **kwargs):
         try:
-            like_obj, _ = Like.objects.get_or_create(owner=request.user, product_id=pk)
+            like_obj, _ = Like.objects.get_or_create(owner=request.user, university_id=pk)
             like_obj.like = not like_obj.like
             like_obj.save()
             msg = 'liked'
@@ -42,19 +42,19 @@ class FeedbackMixin:
     def rating(self, request, pk=None, *args, **kwargs):
         serializer = RatingSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        try:
-            rating_obj, _ = Rating.objects.get_or_create(owner=request.user, product_id=pk)
-            rating_obj.rating = request.data['rating']
-            rating_obj.save()
-            msg = request.data['rating']
-            return Response(f'You give {msg} points to this book')
-        except:
-            return Response('Something went wrong')
+    # try:
+        rating_obj, _ = Rating.objects.get_or_create(owner=request.user, university_id=pk)
+        rating_obj.rating = request.data['rating']
+        rating_obj.save()
+        msg = request.data['rating']
+        return Response(f'You give {msg} points to this university')
+        # except:
+        #     return Response('Something went wrong')
         
     
     def favourite(self, request, pk=None, *args, **kwargs):
         try:
-            fav_obj, _ = Favourite.objects.get_or_create(owner=request.user, product_id=pk)
+            fav_obj, _ = Favourite.objects.get_or_create(owner=request.user, university_id=pk)
             fav_obj.favourite = not fav_obj.favourite
             fav_obj.save()
             msg = 'Added to favourites'
