@@ -1,4 +1,7 @@
 from django.shortcuts import render
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.filters import SearchFilter
+
 from applications.feedback.views import FeedbackMixin
 from core.universities.viewsets import ModelViewSet
 from rest_framework import viewsets
@@ -24,10 +27,10 @@ class PaginationApiView(PageNumberPagination):
 
 class UniversitiesViewSet(ModelViewSet, FeedbackMixin):
     serializer_class = UniversitySerializer
+    filter_backends = [DjangoFilterBackend, SearchFilter]
     queryset = University.objects.all()
     filterset_fields = ['category']
     search_fields = ['name']
-    order_fields = ['price']
 
 
     def perform_create(self, serializer):

@@ -42,14 +42,14 @@ class FeedbackMixin:
     def rating(self, request, pk=None, *args, **kwargs):
         serializer = RatingSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-    # try:
-        rating_obj, _ = Rating.objects.get_or_create(owner=request.user, university_id=pk)
-        rating_obj.rating = request.data['rating']
-        rating_obj.save()
-        msg = request.data['rating']
-        return Response(f'You give {msg} points to this university')
-        # except:
-        #     return Response('Something went wrong')
+        try:
+            rating_obj, _ = Rating.objects.get_or_create(owner=request.user, university_id=pk)
+            rating_obj.rating = request.data['rating']
+            rating_obj.save()
+            msg = request.data['rating']
+            return Response(f'You give {msg} points to this university')
+        except:
+            return Response('Something went wrong')
         
     
     def favourite(self, request, pk=None, *args, **kwargs):
